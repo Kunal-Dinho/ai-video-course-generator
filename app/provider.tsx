@@ -1,9 +1,37 @@
-import React from "react";
+"use client";
 
-function Provider({children}: {children: React.ReactNode}) {
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { User } from "lucide-react";
+import { UserDetailContext } from "@/context/UserDetailContext";
+import { set } from "date-fns";
+
+function Provider({ children }: { children: React.ReactNode }) {
+
+  const [userDetails, setUserDetails] = useState<any>(null);
+
+
+  const CreateNewUser = async () => {
+    try {
+      const result = await axios.post("/api/user");
+      console.log(result.data);
+      setUserDetails(result?.data);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    CreateNewUser();
+  }, []);
+
   return (
-  <div>{children}</div>
-    )
+    <div>
+      <UserDetailContext.Provider value={{ userDetails, setUserDetails}}>
+        {children}
+      </UserDetailContext.Provider>
+    </div>
+  );
 }
 
-//i have live from provider codee continueform there form youtube it is geting error//
+export default Provider;
