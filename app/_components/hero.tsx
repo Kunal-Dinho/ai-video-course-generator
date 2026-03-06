@@ -1,0 +1,61 @@
+import React  from "react";
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupTextarea,
+} from "@/components/ui/input-group"
+import { Send } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { index } from "drizzle-orm/gel-core";
+import { QUICK_VIDEO_SUGGESTIONS } from "@/data/constant";
+function Hero() {
+    return (
+        <div className="flex items-center flex-col mt-20">
+            <div>
+                <h2 className="text-4xl font-bold">Learn Smarter With <span className="text-cyan-300">AI Video Courses</span></h2>
+                <p className="text-center text-gray-500 mt-3 text-xl">Turn Any Topic into a complete Course</p>
+            </div>
+            <div className="grid w-full max-w-xl mt-5 gap-6 bg-white z-10">
+                <InputGroup>
+                    <InputGroupTextarea
+                        data-slot="input-group-control"
+                        className="flex field-sizing-content min-h-24 w-full resize-none rounded-xl bg-white px-3 py-2.5 text-base transition-[color,box-shadow] outline-none md:text-sm"
+                        placeholder="Autoresize textarea..."
+                    />
+                    <InputGroupAddon align="block-end">
+                        <Select>
+                            <SelectTrigger className="w-45">
+                                <SelectValue placeholder="Course" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem value="Full Course">Full Course</SelectItem>
+                                    <SelectItem value="Quick Explain Video">Quick Explain Video</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <InputGroupButton className="ml-auto" size="icon-sm" variant="default">
+                            <Send />
+                        </InputGroupButton>
+                    </InputGroupAddon>
+                </InputGroup>
+            </div>
+            <div className="flex gap-5 mt-5 max-w-3xl flex-wrap justify-center ">
+                {QUICK_VIDEO_SUGGESTIONS.map((suggestion,index) => (
+                    <h2 key={index} className="border rounded-2xl px-2 p-1 text-sm">{suggestion.title}</h2>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default Hero
